@@ -1,0 +1,16 @@
+{
+	"name": "trailsadf2108",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true,
+			"isExplicitlySet": false
+		}
+	},
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "170a024f-92f5-4f56-822e-1cd5fef0523e",
+		"tenantId": "b21a9b2d-95c8-456d-b3df-c9756a55d320"
+	}
+}

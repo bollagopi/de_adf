@@ -1,0 +1,37 @@
+{
+	"name": "lookuponSnowflakeTable",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup_sales",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeV2Source",
+						"query": "select count(*) as no_of_sales from de_db.de_schema.sales_record;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						},
+						"treatDecimalAsString": false
+					},
+					"dataset": {
+						"referenceName": "sales",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-11-19T06:39:28Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

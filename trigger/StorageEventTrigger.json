@@ -1,0 +1,32 @@
+{
+	"name": "StorageEventTrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Generic Copy",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"container": "landing",
+					"path": "snowflake/2026/customers",
+					"file": "customers.csv",
+					"schema": "DE_SCHEMA",
+					"table": "customers"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/landing/blobs/customers",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/47e86933-80f0-475d-9636-9c4330023d2d/resourceGroups/training/providers/Microsoft.Storage/storageAccounts/azuresnowflakestrg2026",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

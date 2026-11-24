@@ -1,0 +1,17 @@
+{
+	"name": "Electric_vehicle_population",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake_LinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "DE_SCHEMA",
+			"table": "VEHICLE_DATA"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

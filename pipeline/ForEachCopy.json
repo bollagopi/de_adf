@@ -1,0 +1,107 @@
+{
+	"name": "ForEachCopy",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach file copy from adls to sf",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@createArray('customers','products','orders')",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "Copy data from adls to sf",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "SnowflakeV2Sink",
+									"importSettings": {
+										"type": "SnowflakeImportCopyCommand",
+										"storageIntegration": "ADLS_TO_SF_SI"
+									}
+								},
+								"enableStaging": true,
+								"stagingSettings": {
+									"linkedServiceName": {
+										"referenceName": "AzureBlobStorage_LinkedService",
+										"type": "LinkedServiceReference"
+									},
+									"path": "blob"
+								},
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "Generic_ADLS_file",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": "landing",
+										"path": {
+											"value": "@concat('snowflake/2026/',item())",
+											"type": "Expression"
+										},
+										"file": {
+											"value": "@concat(item(),'.csv')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Generic_SnowflakeTable",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": {
+											"value": "DE_SCHEMA",
+											"type": "Expression"
+										},
+										"table": {
+											"value": "@toUpper(item())",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-11-20T05:41:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

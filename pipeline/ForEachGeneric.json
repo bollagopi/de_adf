@@ -1,0 +1,62 @@
+{
+	"name": "ForEachGeneric",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach Table Count",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@createArray('large','mixed','quote')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "LookupCountOfTabls",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SnowflakeV2Source",
+									"query": {
+										"value": "@concat('select count(*) as no_of_rows from DE_SCHEMA.',item())",
+										"type": "Expression"
+									},
+									"exportSettings": {
+										"type": "SnowflakeExportCopyCommand"
+									},
+									"treatDecimalAsString": false
+								},
+								"dataset": {
+									"referenceName": "Generic_SnowflakeTable",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": "DE_SCHEMA",
+										"table": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-11-19T11:51:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

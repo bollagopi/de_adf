@@ -1,0 +1,27 @@
+{
+	"name": "FetchDataFromApi",
+	"properties": {
+		"activities": [
+			{
+				"name": "DogBreeds",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://api.thecatapi.com/v1/breeds"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-11-23T06:52:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
